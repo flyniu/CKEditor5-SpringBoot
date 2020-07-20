@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Hello CKEditor5</title>
+    <script src="https://cdn.ckeditor.com/ckeditor5/12.0.0/classic/ckeditor.js"></script>
     <style>
         .msg{
             width: 200px;
@@ -16,5 +17,36 @@
 </head>
 <body>
     <h2 class="msg">${message}</h2>
+    <form method="post" action="/content/content2">
+        <textarea name="content" id="editor">
+            <#if content2??>
+            ${content2.text }
+<#else>
+    niuzijian
+</#if>
+
+        </textarea>
+            <input type="submit"/>
+    </form>
+
+    <#list contents as content>
+    <a href="/hello?id=${content.id }">${content.id } </a>
+    &nbsp
+    </#list>
+
+
+    <script>
+        var myEditor = null;
+        window.onload = function(){
+            ClassicEditor
+                .create(document.querySelector("#editor"))
+                .then(editor => {
+                    myEditor = editor;
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+    </script>
 </body>
 </html>
